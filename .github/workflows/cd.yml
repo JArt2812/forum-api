@@ -10,16 +10,23 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-    - name: SSH and deploy app
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        port: ${{ secrets.SSH_PORT }}
-        script: |
-          cd ~/forum-api
-          git pull origin master
-          npm install
-          npm run migrate up
-          pm2 restart forum-api
+      - uses: 'actions/checkout@v2'
+ 
+      - id: 'auth'
+        uses: 'google-github-actions/auth@master'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - id: 'compute-ssh'
+        uses: 'google-github-actions/ssh-compute@master'
+        with:
+          instance_name: '${{ secrets.GCP_INSTANCE }}'
+          zone: '${{ secrets.GCP_INSTANCE_ZONE }}'
+          ssh_private_key: '${{ secrets.SSH_KEY }}'
+          user: '${{ secrets.GCP_USER }}'
+          script: |
+            cd ~/forum-api
+            git pull origin master
+            npm install
+            npm run migrate up
+            pm2 restart forum-api
