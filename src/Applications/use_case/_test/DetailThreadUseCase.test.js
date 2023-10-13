@@ -73,7 +73,7 @@ describe('DetailThreadUseCase', () => {
 
     // Action
     const detailThread = await detailThreadUseCase.execute(useCasePayload);
-    console.log(detailThread);
+
     // Assert
     expect(mockThreadRepository.getDetailThread)
       .toHaveBeenCalledWith(useCasePayload.thread);
