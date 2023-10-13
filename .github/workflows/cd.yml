@@ -13,12 +13,12 @@ jobs:
       - uses: 'actions/checkout@v2'
  
       - id: 'auth'
-        uses: 'google-github-actions/auth@master'
+        uses: 'google-github-actions/auth@v0'
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
       - id: 'compute-ssh'
-        uses: 'google-github-actions/ssh-compute@master'
+        uses: 'google-github-actions/ssh-compute@v0'
         with:
           instance_name: '${{ secrets.GCP_INSTANCE }}'
           zone: '${{ secrets.GCP_INSTANCE_ZONE }}'
