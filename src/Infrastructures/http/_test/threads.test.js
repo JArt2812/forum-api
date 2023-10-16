@@ -80,10 +80,6 @@ describe('/threads endpoint', () => {
 
     it('should response 400 if payload not meet data type specification', async () => {
       // Arrange
-      // const loginPayload = {
-      //   username: 'zaza',
-      //   password: '12345678',
-      // };
 
       const server = await createServer(container);
 
