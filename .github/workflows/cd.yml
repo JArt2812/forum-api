@@ -25,7 +25,7 @@ jobs:
           ssh_private_key: '${{ secrets.SSH_KEY }}'
           user: '${{ secrets.GCP_USER }}'
           script: |
-            hostname -I
+            whoami
             cd ~/forum-api
             git pull origin master
             npm install
